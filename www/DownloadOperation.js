@@ -28,14 +28,16 @@ var exec = require('cordova/exec'),
  * @param {string} uri The location of the resource.
  * @param {File} resultFile The file that the response will be written to.
  */
-var DownloadOperation = function (uri, resultFile) {
+var DownloadOperation = function (uri, resultFile, title, visibleInUi) {
 
     if (uri == null || resultFile == null) {
         throw new Error("missing or invalid argument");
     }
-    
+
     this.uri = uri;
     this.resultFile = resultFile;
+    this.title = title;
+    this.visibleInUi = visibleInUi;
 };
 
 /**
@@ -47,9 +49,9 @@ DownloadOperation.prototype.startAsync = function() {
         me = this,
         successCallback = function(result) {
 
-            // success callback is used to both report operation progress and 
+            // success callback is used to both report operation progress and
             // as operation completeness handler
-            
+
             if (result && typeof result.progress != 'undefined') {
                 deferral.notify(result.progress);
             } else {
