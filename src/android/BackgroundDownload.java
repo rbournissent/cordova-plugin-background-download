@@ -174,8 +174,7 @@ public class BackgroundDownload extends CordovaPlugin {
             request.setTitle(args.get(2).toString());
             request.setVisibleInDownloadsUi(Boolean.parseBoolean(args.get(3).toString()));
 
-            // hide notification. Not compatible with current android api.
-            // request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
             // we use default settings for roaming and network type
             // request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
