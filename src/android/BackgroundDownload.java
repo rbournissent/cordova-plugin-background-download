@@ -254,7 +254,7 @@ public class BackgroundDownload extends CordovaPlugin {
     }
 
     private String getUserFriendlyReason(int reason) {
-        String failedReason = "";
+        String failedReason = reason + "";
         switch (reason) {
         case DownloadManager.ERROR_CANNOT_RESUME:
             failedReason = "ERROR_CANNOT_RESUME";
