@@ -6,28 +6,34 @@ API provides an advanced file download functionality that persists beyond app te
 
         var fileName = "PointerEventsCordovaPlugin.wmv",
             uriString = "http://media.ch9.ms/ch9/8c03/f4fe2512-59e5-4a07-bded-124b06ac8c03/PointerEventsCordovaPlugin.wmv";
-        
+
         // open target file for download
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
             fileSystem.root.getFile(fileName, { create: true }, function (targetFile) {
-                
+
                 var onSuccess, onError, onProgress; // plugin callbacks to track operation execution status and progress
-        
+
+                var notificationTitle = 'Downloading file...';
+                var visibleInDownloadsUi = true;
+
                 var downloader = new BackgroundTransfer.BackgroundDownloader();
                 // Create a new download operation.
-                var download = downloader.createDownload(uriString, targetFile);
+                var download = downloader.createDownload(uriString,
+                                                         targetFile,
+                                                         nofificationTitle,
+                                                         visibleInDownloadsUi);
                 // Start the download and persist the promise to be able to cancel the download.
                 app.downloadPromise = download.startAsync().then(onSuccess, onError, onProgress);
             });
         });
 
 **Supported platforms**
- 
+
  * Windows8
  * Windows Phone8
  * iOS 7.0 or later
  * Android
- 
+
 **Quirks**
  * Concurrent background downloads are NOT currently supported on iOS.
  * If a download operation was completed when the application was in the background, onSuccess callback is called when the application become active.
